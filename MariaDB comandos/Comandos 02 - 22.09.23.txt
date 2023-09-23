@@ -1,0 +1,382 @@
+1 forma normal vai para a relacao de atributos mmnulltivalorados.
+
+--especializacao e especificacao
+
+----nao pode deixar campos vazios
+
+------ quando nao se sabe onde por a chave estrangeira se faz outra tabela
+
+---------------------------------------------------------------------------
+
+Setting environment for using XAMPP for Windows.
+UNINASSAU@UFB001-L101-005 c:\xampp
+# cd mysql\bin
+
+UNINASSAU@UFB001-L101-005 c:\xampp\mysql\bin
+# mysql -uroot -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| livraria           |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.023 sec)
+
+MariaDB [(none)]> create user 'Marley_hell'@'localhost' identified by '123456';
+Query OK, 0 rows affected (0.040 sec)
+
+MariaDB [(none)]> grant all privileges on *.* to 'Marley_hell';
+Query OK, 0 rows affected (0.054 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+UNINASSAU@UFB001-L101-005 c:\xampp\mysql\bin
+# mysql -uMarly_hell -p
+Enter password: ******
+ERROR 1045 (28000): Access denied for user 'Marly_hell'@'localhost' (using password: YES)
+
+UNINASSAU@UFB001-L101-005 c:\xampp\mysql\bin
+# mysql -uMarley_hell -p
+Enter password: ******
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select user();
++-----------------------+
+| user()                |
++-----------------------+
+| Marley_hell@localhost |
++-----------------------+
+1 row in set (0.000 sec)
+
+MariaDB [(none)]> create database nokstela;
+ERROR 1044 (42000): Access denied for user 'Marley_hell'@'localhost' to database 'nokstela'
+MariaDB [(none)]> create database nokstela;
+ERROR 1044 (42000): Access denied for user 'Marley_hell'@'localhost' to database 'nokstela'
+MariaDB [(none)]> exit
+Bye
+
+UNINASSAU@UFB001-L101-005 c:\xampp\mysql\bin
+# mysql -uroot -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> grant all privileges on *.* to 'Marley_hell'@'localhost';
+Query OK, 0 rows affected (0.029 sec)
+
+MariaDB [(none)]>
+MariaDB [(none)]> exit
+Bye
+
+UNINASSAU@UFB001-L101-005 c:\xampp\mysql\bin
+# mysql -uMarley_hell -p
+Enter password: ******
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database nokstela;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use nokstela
+Database changed
+MariaDB [nokstela]> create table cliente(
+    -> id int primary key auto_increment,
+    -> nome varchar(30) );
+Query OK, 0 rows affected (0.091 sec)
+
+MariaDB [nokstela]> create table tel_cliente(
+    -> id int primary key auto_increment,
+    -> tipo varchar(20),
+    -> numero varchar(20));
+Query OK, 0 rows affected (0.154 sec)
+
+MariaDB [nokstela]> create table end_endereco(
+    -> id int primary key auto_increment,
+    -> bairro varchar(30),
+    -> RUA VARCHAR(30),
+    -> numero int );
+Query OK, 0 rows affected (0.082 sec)
+
+MariaDB [nokstela]> create table tipo_cliente(
+    -> id int primary key auto_increment,
+    -> tipo varchar(20),
+    -> numero varchar(20));
+Query OK, 0 rows affected (0.092 sec)
+
+MariaDB [nokstela]> desc nokstela
+    -> ;
+ERROR 1146 (42S02): Table 'nokstela.nokstela' doesn't exist
+MariaDB [nokstela]> desc end_cliente;
+ERROR 1146 (42S02): Table 'nokstela.end_cliente' doesn't exist
+MariaDB [nokstela]> desc end_endereco;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| bairro | varchar(30) | YES  |     | NULL    |                |
+| RUA    | varchar(30) | YES  |     | NULL    |                |
+| numero | int(11)     | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.046 sec)
+
+MariaDB [nokstela]> show tables;
++--------------------+
+| Tables_in_nokstela |
++--------------------+
+| cliente            |
+| end_endereco       |
+| tel_cliente        |
+| tipo_cliente       |
++--------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [nokstela]> create table editora(
+    -> id int primary key auto_increment,
+    -> gerente varchar(20));
+Query OK, 0 rows affected (0.085 sec)
+
+MariaDB [nokstela]> create table livro(
+    -> id int primary key auto_increment,
+    -> isbn varchar(20),
+    -> descricao text);
+Query OK, 0 rows affected (0.113 sec)
+
+MariaDB [nokstela]> show tables;
++--------------------+
+| Tables_in_nokstela |
++--------------------+
+| cliente            |
+| editora            |
+| end_endereco       |
+| livro              |
+| tel_cliente        |
+| tipo_cliente       |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [nokstela]> create table estoque(
+    -> id int primary key auto_increment,
+    -> qtd int);
+Query OK, 0 rows affected (0.100 sec)
+
+MariaDB [nokstela]> show tables;
++--------------------+
+| Tables_in_nokstela |
++--------------------+
+| cliente            |
+| editora            |
+| end_endereco       |
+| estoque            |
+| livro              |
+| tel_cliente        |
+| tipo_cliente       |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [nokstela]> create table venda(
+    -> id int primary key auto_increment,
+    -> a int,
+    -> b,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 4
+MariaDB [nokstela]> create table venda(
+    -> id int primary key auto_increment,
+    -> a int,
+    -> b int,
+    -> c int);
+Query OK, 0 rows affected (0.109 sec)
+
+MariaDB [nokstela]> alter table end_endereco add column id_c int after id;
+Query OK, 0 rows affected (0.087 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> alter table tel_cliente add column id_c int after id;
+Query OK, 0 rows affected (0.052 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> alter table tipo_cliente add column id_c int after id;
+Query OK, 0 rows affected (0.057 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> alter table tipo_cliente add foreign key (id_c) references cliente (id);
+Query OK, 0 rows affected (0.365 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> desc tipo_cliente;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| id_c   | int(11)     | YES  | MUL | NULL    |                |
+| tipo   | varchar(20) | YES  |     | NULL    |                |
+| numero | varchar(20) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.011 sec)
+
+MariaDB [nokstela]> alter table tel_cliente add foreign key (id_c) references cliente (id);
+Query OK, 0 rows affected (0.328 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> desc vendas]
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ']' at line 1
+MariaDB [nokstela]> desc vendas;
+ERROR 1146 (42S02): Table 'nokstela.vendas' doesn't exist
+MariaDB [nokstela]> desc venda
+    -> ;
++-------+---------+------+-----+---------+----------------+
+| Field | Type    | Null | Key | Default | Extra          |
++-------+---------+------+-----+---------+----------------+
+| id    | int(11) | NO   | PRI | NULL    | auto_increment |
+| a     | int(11) | YES  |     | NULL    |                |
+| b     | int(11) | YES  |     | NULL    |                |
+| c     | int(11) | YES  |     | NULL    |                |
++-------+---------+------+-----+---------+----------------+
+4 rows in set (0.009 sec)
+
+MariaDB [nokstela]> drop venda;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'venda' at line 1
+MariaDB [nokstela]> drop table venda;
+Query OK, 0 rows affected (0.115 sec)
+
+MariaDB [nokstela]> create table venda;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [nokstela]> create table venda(
+    -> id int primary key auto_increment,
+    -> cliente int,
+    -> livro int);
+Query OK, 0 rows affected (0.076 sec)
+
+MariaDB [nokstela]> alter table venda add foreign key (clinete) references cliente (id);
+ERROR 1072 (42000): Key column 'clinete' doesn't exist in table
+MariaDB [nokstela]> alter table venda add foreign key (cliente) references cliente (id);
+Query OK, 0 rows affected (0.322 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> alter table venda add foreign key (livro) references livro (id);
+Query OK, 0 rows affected (0.418 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> show tables;
++--------------------+
+| Tables_in_nokstela |
++--------------------+
+| cliente            |
+| editora            |
+| end_endereco       |
+| estoque            |
+| livro              |
+| tel_cliente        |
+| tipo_cliente       |
+| venda              |
++--------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [nokstela]> create table autor(
+    -> id int primary key auto_increment,
+    -> nome carchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(20))' at line 3
+MariaDB [nokstela]> create table autor(
+    -> id int primary key auto_increment,
+    -> nome varchar(20));
+Query OK, 0 rows affected (0.155 sec)
+
+MariaDB [nokstela]> create table aut_livro(
+    -> id int primary key auto_increment,
+    -> autor int,
+    -> livro int);
+Query OK, 0 rows affected (0.089 sec)
+
+MariaDB [nokstela]> alter table aut_livro add foreign key (livro) references livro (id);
+Query OK, 0 rows affected (0.303 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> alter table aut_livro add foreign key (autor) references autor (id);
+Query OK, 0 rows affected (0.322 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> insert into cliente values(null, 'Schopenhauer');
+Query OK, 1 row affected (0.024 sec)
+
+MariaDB [nokstela]> insert into tel_cliente values(null,1,'celular',7799911122),(null,1,'fixo',36231111);
+Query OK, 2 rows affected (0.043 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> alter table end_endereco add column tipo varchar(20) after id_c;
+Query OK, 0 rows affected (0.077 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [nokstela]> desc end_endereco;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| id_c   | int(11)     | YES  |     | NULL    |                |
+| tipo   | varchar(20) | YES  |     | NULL    |                |
+| bairro | varchar(30) | YES  |     | NULL    |                |
+| RUA    | varchar(30) | YES  |     | NULL    |                |
+| numero | int(11)     | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+6 rows in set (0.010 sec)
+
+MariaDB [nokstela]> insert into end_endereco values (null, 1,'residencial', 'centro','rua a', '171');
+Query OK, 1 row affected (0.012 sec)
+
+MariaDB [nokstela]> select c.nome, t.tipo, t.numero from cliente c join tel_cliente t on c.id = t.id_c;
++--------------+---------+------------+
+| nome         | tipo    | numero     |
++--------------+---------+------------+
+| Schopenhauer | celular | 7799911122 |
+| Schopenhauer | fixo    | 36231111   |
++--------------+---------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [nokstela]> select c.nome, t.tipo, t.numero, e.bairro from cliente c join tel_cliente t on c.id = t.id_c join end_endereco e on c.id = e.id_c;
++--------------+---------+------------+--------+
+| nome         | tipo    | numero     | bairro |
++--------------+---------+------------+--------+
+| Schopenhauer | celular | 7799911122 | centro |
+| Schopenhauer | fixo    | 36231111   | centro |
++--------------+---------+------------+--------+
+2 rows in set (0.001 sec)
+
+MariaDB [nokstela]> insert into livro values(null,123456,' eh um livro muito bom');
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [nokstela]> insert into venda values(null,1,1);
+Query OK, 1 row affected (0.029 sec)
+
+MariaDB [nokstela]> select c.nome, t.tipo, t.numero, l.isbn l.descricao from cliente c join tel_cliente t on c.id = t.id_c join venda v on c.id = v.cliente join livro l on l.id = v.livro;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.descricao from cliente c join tel_cliente t on c.id = t.id_c join venda v on...' at line 1
+MariaDB [nokstela]>
